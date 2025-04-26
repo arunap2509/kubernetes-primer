@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8session-deployment-demo
+  labels:
+    app: dotnet-webapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dotnet-webapi
+  template:
+    metadata:
+      labels:
+        app: dotnet-webapi
+    spec:
+      containers:
+      - name: dotnet-webapi
+        image: arunap2509/k8session-poddemo:latest
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}

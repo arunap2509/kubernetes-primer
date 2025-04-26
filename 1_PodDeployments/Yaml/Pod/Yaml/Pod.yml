@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k8session-pod-demo
+spec:
+  containers:
+    - name: dotnet-webapi
+      image: arunap2509/k8session-poddemo:latest
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+      resources: {}  # Empty resources block to avoid validation error
+  restartPolicy: Always
