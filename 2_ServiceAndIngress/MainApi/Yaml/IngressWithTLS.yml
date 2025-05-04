@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-tls-demo
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8session-svc-ingress
+  namespace: ingress-tls-demo
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - my-dotnet-app.com
+      secretName: my-dotnet-app.com
+  rules:
+    - host: my-dotnet-app.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: k8session-service
+                port:
+                  number: 80
+                  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8session-service
+  namespace: ingress-tls-demo
+spec:
+  selector:
+    app: dotnet-webapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8session-deployment-demo
+  namespace: ingress-tls-demo
+  labels:
+    app: dotnet-webapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-webapi
+  template:
+    metadata:
+      labels:
+        app: dotnet-webapi
+    spec:
+      containers:
+        - name: dotnet-webapi
+          image: arunap2509/k8session-svcapi:latest
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources: {}

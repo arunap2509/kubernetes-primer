@@ -1,0 +1,2 @@
+kubectl exec -it <pod-name> -- sh
+# yes > /dev/null &
