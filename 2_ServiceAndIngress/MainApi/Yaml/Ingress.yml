@@ -1,9 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-demo
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: k8session-svc-ingress
+  namespace: ingress-demo
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - my-dotnet-app.com
+      secretName: my-dotnet-app.com
   rules:
     - host: my-dotnet-app.com
       http:
@@ -21,6 +33,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: k8session-service
+  namespace: ingress-demo
 spec:
   selector:
     app: dotnet-webapi
@@ -36,6 +49,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8session-deployment-demo
+  namespace: ingress-demo
   labels:
     app: dotnet-webapi
 spec:

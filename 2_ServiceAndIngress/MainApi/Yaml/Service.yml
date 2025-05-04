@@ -1,7 +1,57 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: service-demo
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8session-deployment-demo
+  namespace: service-demo
+  labels:
+    app: dotnet-webapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnet-webapi
+  template:
+    metadata:
+      labels:
+        app: dotnet-webapi
+    spec:
+      containers:
+      - name: dotnet-webapi
+        image: arunap2509/k8session-svcapi:latest
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources: {}
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /liveness
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          periodSeconds: 5
+          failureThreshold: 1
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: k8session-service
+  namespace: service-demo
 spec:
   selector:
     app: dotnet-webapi

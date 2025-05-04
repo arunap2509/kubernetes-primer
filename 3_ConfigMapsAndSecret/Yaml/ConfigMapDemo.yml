@@ -1,9 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: config-demo
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: k8session-helper-service
+  namespace: config-demo
 spec:
   selector:
     app: dotnet-helper-webapi
@@ -19,6 +24,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8session-helper-api
+  namespace: config-demo
   labels:
     app: dotnet-helper-webapi
 spec:
@@ -55,6 +61,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: helper-api-config
+  namespace: config-demo
 data:
   Name: 'John'
   Job: 'Engineer'

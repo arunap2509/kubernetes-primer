@@ -1,7 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deployment-demo
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8session-deployment-demo
+  namespace: deployment-demo
   labels:
     app: dotnet-webapi
 spec:
