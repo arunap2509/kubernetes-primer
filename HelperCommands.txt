@@ -1,0 +1,24 @@
+PortForwarding:
+    kubectl port-forward <pod-name> <local-port:container:port>
+
+Rollback:
+    kubectl rollout status -n config-demo deployment/k8session-helper-api
+    kubectl rollout history -n config-demo deployment/k8session-helper-api
+    kubectl rollout undo -n config-demo deployment/k8session-helper-api
+    kubectl rollout undo -n config-demo deployment/k8session-helper-api --to-revision=<num>
+
+Describe:
+    kubectl describe deployment <deploy-name>
+    kubectl get deployment <deploy-name> -o yaml # get the entire yaml
+
+Logs:
+    kubectl logs <pod-name>
+
+Basics:
+    kubectl get pods
+    kubectl get deploy
+    kubectl get services
+    kubectl get configmaps
+    kubectl get secrets
+    kubectl get jobs
+    kubectl get cronjobs

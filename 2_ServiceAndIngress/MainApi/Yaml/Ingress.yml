@@ -12,10 +12,6 @@ metadata:
   namespace: ingress-demo
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - my-dotnet-app.com
-      secretName: my-dotnet-app.com
   rules:
     - host: my-dotnet-app.com
       http:

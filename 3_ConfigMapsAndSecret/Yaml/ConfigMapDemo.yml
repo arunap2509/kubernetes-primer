@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name: dotnet-helper-webapi
-          image: arunap2509/k8session-configmaps:latest
+          image: arunap2509/k8session-configmaps:latest # 1, 2
           envFrom:
             - configMapRef:
                 name: helper-api-config
