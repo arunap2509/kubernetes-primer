@@ -22,3 +22,12 @@ Basics:
     kubectl get secrets
     kubectl get jobs
     kubectl get cronjobs
+
+Repo:
+    https://github.com/arunap2509/kubernetes-primer
+
+Nginx:
+    https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.2/deploy/static/provider/cloud/deploy.yaml
+
+Open interactive terminal inside the pod:
+    kubectl exec -n rbac-demo -it <pod-name> -- sh

@@ -19,7 +19,7 @@ spec:
       labels:
         app: kubectl
     spec:
-    #  serviceAccountName: kubectl-pod
+      serviceAccountName: kubectl-pod
       containers:
         - name: kubectl
           image: bitnami/kubectl
